@@ -7,12 +7,12 @@ This project demonstrates modern web development concepts including authenticati
 
 ### Features
 
->User registration and login
->Private/direct messaging
->Chat rooms for group discussions
->Real-time message updates
->Message history saved in the database
->Optional emoji support and typing indicators
+* User registration and login
+* Private/direct messaging
+* Chat rooms for group discussions
+* Real-time message updates
+* Message history saved in the database
+* Optional emoji support and typing indicators
 
 
 ### Project Structure
@@ -42,9 +42,9 @@ operations
 
 ### Prerequisites
 
--Python 3.8 or higher
--Supabase account
--Git(Push,cloning)
+- Python 3.8 or higher
+- Supabase account
+- Git(Push,cloning)
 
 #### 1. Clone or Download the Project
 ##### Option 1:Clone with Git
@@ -63,10 +63,10 @@ pip install -r requirements.txt
 
 2.Create the Task Table:
 
--Go to the SQL Editor in your Supabase dashboard
--Run this SQL command:
+- Go to the SQL Editor in your Supabase dashboard
+- Run this SQL command:
 - - -sql
-creteert
+        - creteert
 
 3.Get Your Credentials:
 
@@ -75,12 +75,12 @@ creteert
 1.Create a `.env` file in the project root
 
 2.Add your Supabase credentials to `.env`:
-SUPABASE_URL=your_project_url_here
-SUPABASE_KEY=your_anon_key_here
+- SUPABASE_URL=your_project_url_here
+- SUPABASE_KEY=your_anon_key_here
 
 **Example:**
-SUPABASE_URL=https://anbdydhsdnxj.supabase.co
-SUPABASE_KEY=jhyjfrgykjklm.....
+- SUPABASE_URL=https://anbdydhsdnxj.supabase.co
+- SUPABASE_KEY=jhyjfrgykjklm.....
 
 
 #### 5. Run the Application
@@ -137,14 +137,14 @@ The API will be available at `http://localhost:8000`
 ### Future Enhancements
 Ideas for extending this project:
 
-**Emojis**:Allow users to send emojis in messages
-**Audio/Video**:Add real-time audio/video communication between users
-**Chatbot**:Introduce a bot user that can answer questions or moderate chats,could be a simple keyword-based bot or an AI-powered assistant.
+1. **Emojis**:Allow users to send emojis in messages
+2. **Audio/Video**:Add real-time audio/video communication between users
+3. **Chatbot**:Introduce a bot user that can answer questions or moderate chats,could be a simple keyword-based bot or an AI-powered assistant.
 Example features: automated replies, FAQs, or fun commands like /joke
-**Notifications**:Add real-time browser or in-app notifications for new messages,could include desktop push notifications for web users
+4. **Notifications**:Add real-time browser or in-app notifications for new messages,could include desktop push notifications for web users
 
 ### Support
 
 If you encounter any issues or have questions:
-Mobile no:9912283777
-Email:vishishta2805@gmail.com
+- Mobile no:9912283777
+- Email:vishishta2805@gmail.com
