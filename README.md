@@ -18,23 +18,19 @@ This project demonstrates modern web development concepts including authenticati
 ### Project Structure
 
 WEBTALK/
-|
-|---src/                #core application logic
-|     |---logic.py      #Business logic and task
-operations 
-|     |__db.py          #DataBase Operations
-|
-|---api/                #Backend API
-|     |__main.py        #FastAPI endpoints
-|
-|---frontend/           #Frontend application
-|        |__app.py      #Streamlit web interface
-|
-|____requirements.txt    # Python Dependencies
-|
-|____READ.md             #Project documentation
-|
-|____.env                #Python Variables
+├── src/ # Core application logic
+│ ├── logic.py # Business logic and task operations
+│ └── db.py # Database operations
+│
+├── api/ # Backend API
+│ └── main.py # FastAPI endpoints
+│
+├── frontend/ # Frontend application
+│ ├── app.py # Streamlit web interface
+│ └── requirements.txt # Python dependencies
+│
+├── README.md # Project documentation
+└── .env # Python environment variables
 
 ### Quick Start
 
