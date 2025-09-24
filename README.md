@@ -1,4 +1,4 @@
-### Web Talk
+# Web Talk
 
 This is a full-stack real-time chat application built with Python, FastAPI, Streamlit, Supabase, and WebSockets. It allows users to register, log in, and chat in real-time in both private and group chat rooms. Messages are stored in a database to maintain chat history, and real-time updates are delivered via WebSockets or Supabase Realtime subscriptions, ensuring a smooth and interactive user experience.
 
@@ -46,19 +46,19 @@ operations
 -Supabase account
 -Git(Push,cloning)
 
-## 1. Clone or Download the Project
-# Option 1:Clone with Git
+#### 1. Clone or Download the Project
+##### Option 1:Clone with Git
 git clone <repository-url>
 
-# Option 2: Download and extract the ZIP file
+##### Option 2: Download and extract the ZIP file
 
 
-## 2. Install Dependencies
-# Install all required Python packages
+#### 2. Install Dependencies
+##### Install all required Python packages
 pip install -r requirements.txt
 
 
-## 3. Set Up Supabase Database
+#### 3. Set Up Supabase Database
 1.Create a Supabase Project:
 
 2.Create the Task Table:
@@ -71,7 +71,7 @@ creteert
 3.Get Your Credentials:
 
 
-## 4. Configure Environment Variables
+#### 4. Configure Environment Variables
 1.Create a `.env` file in the project root
 
 2.Add your Supabase credentials to `.env`:
@@ -83,13 +83,13 @@ SUPABASE_URL=https://anbdydhsdnxj.supabase.co
 SUPABASE_KEY=jhyjfrgykjklm.....
 
 
-## 5. Run the Application
-# Stremlit Frontend
+#### 5. Run the Application
+##### Stremlit Frontend
 streamlit run frontend/app.py
 
 The app will open in your browser at `http://localhost:8501`
 
-# FastAPI Backend
+##### FastAPI Backend
 cd api
 python main.py
 

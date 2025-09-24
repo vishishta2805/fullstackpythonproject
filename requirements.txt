@@ -1,0 +1,6 @@
+streamlit>=1.29     # Frontend dashboard/UI
+supabase>=2.0.2     # Supabase client library
+fastapi>=0.104.1    # Backend API framework
+uvicorn>=0.24.0   # ASGI server for FastAPI
+python-dotenv>=1.0.0  # Load environment variables from .env file
+python-multipart==0.0.6      # For file uploads (attachments)
