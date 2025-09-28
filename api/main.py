@@ -1,13 +1,13 @@
-# main.py
+# api/main.py
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import sys, os
 import uvicorn
+from src.db import supabase
 
-# Add src folder to path
-sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
-from logic import UserManager, ChatRoomManager, MessageManager, UserStatusManager
+# ------------------ Import from src ------------------
+from src.logic import UserManager, ChatRoomManager, MessageManager, UserStatusManager
 
 # ------------------ App Setup ------------------
 app = FastAPI(title="Web Talk API", version="1.0.0")
@@ -28,9 +28,14 @@ status = UserStatusManager()
 
 # ------------------ Pydantic Models ------------------
 class UserCreate(BaseModel):
-    user_id: str
     username: str
     full_name: str
+    email: str = None
+    avatar_url: str = None
+
+class UserUpdate(BaseModel):
+    username: str = None
+    full_name: str = None
     email: str = None
     avatar_url: str = None
 
@@ -46,34 +51,39 @@ class MessageCreate(BaseModel):
     message_type: str = "text"
     reply_to_id: str = None
 
+class MessageUpdate(BaseModel):
+    content: str
+
 class UserStatusUpdate(BaseModel):
     user_id: str
     status: str
 
-class Student(BaseModel):
-    student_id: int
-    name: str
-    email: str
-
-# In-memory student store
-student_store = {}
-
 # ------------------ USER Endpoints ------------------
 @app.post("/users")
 def create_user_endpoint(user: UserCreate):
-    return users.create_user(**user.dict())
+    return users.create_user(
+        username=user.username,
+        full_name=user.full_name,
+        email=user.email,
+        avatar_url=user.avatar_url
+    )
 
 @app.get("/users/{user_id}")
 def get_user_by_id_endpoint(user_id: str):
     return users.get_user_by_id(user_id)
 
 @app.put("/users/{user_id}")
-def update_user_endpoint(user_id: str, updates: dict):
-    return users.update_user(user_id, updates)
+def update_user_endpoint(user_id: str, updates: UserUpdate):
+    return users.update_user(user_id, updates.dict(exclude_unset=True))
 
 @app.delete("/users/{user_id}")
 def delete_user_endpoint(user_id: str):
     return users.delete_user(user_id)
+
+@app.get("/users")
+def get_all_users():
+    return users.list_users()
+
 
 # ------------------ CHAT ROOM Endpoints ------------------
 @app.post("/rooms")
@@ -107,16 +117,17 @@ def get_users_in_room_endpoint(room_id: str):
 # ------------------ MESSAGE Endpoints ------------------
 @app.post("/messages")
 def send_message_endpoint(msg: MessageCreate):
-    return messages.send_message(msg.room_id, msg.sender_id, msg.content, msg.message_type, msg.reply_to_id)
+    return messages.send_message(
+        msg.room_id, msg.sender_id, msg.content, msg.message_type, msg.reply_to_id
+    )
 
 @app.get("/messages/{room_id}")
 def get_messages_for_room_endpoint(room_id: str, limit: int = 50, offset: int = 0):
     return messages.get_messages_for_room(room_id, limit, offset)
 
 @app.put("/messages/{message_id}")
-def edit_message_endpoint(message_id: str, updates: dict):
-    new_content = updates.get("content")
-    return messages.edit_message(message_id, new_content)
+def edit_message_endpoint(message_id: str, updates: MessageUpdate):
+    return messages.edit_message(message_id, updates.content)
 
 @app.delete("/messages/{message_id}")
 def delete_message_endpoint(message_id: str):
@@ -131,34 +142,6 @@ def update_user_status_endpoint(data: UserStatusUpdate):
 def get_user_status_endpoint(user_id: str):
     return status.get_user_status(user_id)
 
-# ------------------ STUDENT Endpoints ------------------
-@app.post("/students")
-def add_student(student: Student):
-    if student.student_id in student_store:
-        raise HTTPException(status_code=400, detail="Student ID already exists")
-    student_store[student.student_id] = student
-    return {"Success": True, "Message": "Student added successfully"}
-
-@app.get("/students")
-def get_students():
-    return {"students": list(student_store.values())}
-
-@app.put("/students/{student_id}")
-def update_student(student_id: int, updates: dict):
-    if student_id not in student_store:
-        raise HTTPException(status_code=404, detail="Student not found")
-    student_data = student_store[student_id].dict()
-    student_data.update(updates)
-    student_store[student_id] = Student(**student_data)
-    return {"Success": True, "Message": "Student updated successfully"}
-
-@app.delete("/students/{student_id}")
-def delete_student(student_id: int):
-    if student_id not in student_store:
-        raise HTTPException(status_code=404, detail="Student not found")
-    del student_store[student_id]
-    return {"Success": True, "Message": "Student deleted successfully"}
-
-# ------------------ Run Uvicorn ------------------
+# ------------------ Run with Uvicorn ------------------
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("api.main:app", host="127.0.0.1", port=8000, reload=True)
